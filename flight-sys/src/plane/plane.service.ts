@@ -22,7 +22,7 @@ export class PlaneService {
   }
 
   async findAllActive() {
-    const planes = await this.planeModel.find({'status': 1});
+    const planes = await this.planeModel.find({'active': 1});
     return planes;
   }
 
@@ -39,14 +39,14 @@ export class PlaneService {
 
   async remove(id: string) {
     const plane = await this.findById(id);
-    plane.set('status', 0);
+    plane.set('active', 0);
     plane.set('deletedAt', new Date().toISOString());
     const result = await plane.save();
     return result;
   }
 
   private async findById(id: string, throwError: boolean = true) {
-    const result = await this.planeModel.findOne({'_id': id, 'status': 1});
+    const result = await this.planeModel.findOne({'_id': id, 'active': 1});
     if (!result && throwError) throw new NotFoundException(`Plane ${id} not found`)
     return result;
   }
