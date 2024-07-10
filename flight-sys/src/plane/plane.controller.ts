@@ -13,22 +13,27 @@ export class PlaneController {
   }
 
   @Get()
+  findAllActive() {
+    return this.planeService.findAllActive();
+  }
+
+  @Get('all')
   findAll() {
     return this.planeService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.planeService.findOne(+id);
+    return this.planeService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePlaneDto: UpdatePlaneDto) {
-    return this.planeService.update(+id, updatePlaneDto);
+    return this.planeService.update(id, updatePlaneDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.planeService.remove(+id);
+    return this.planeService.remove(id);
   }
 }
