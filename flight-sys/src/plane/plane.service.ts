@@ -1,26 +1,53 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePlaneDto } from './dto/create-plane.dto';
 import { UpdatePlaneDto } from './dto/update-plane.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Plane } from './schemas/plane.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class PlaneService {
-  create(createPlaneDto: CreatePlaneDto) {
-    return 'This action adds a new plane';
+
+  constructor(@InjectModel(Plane.name) private planeModel: Model<Plane>) {}
+
+  async create(createPlaneDto: CreatePlaneDto) {
+    const newPlane = new this.planeModel(createPlaneDto);
+    const result = await newPlane.save();
+    return result;
   }
 
-  findAll() {
-    return `This action returns all plane`;
+  async findAll() {
+    const planes = await this.planeModel.find();
+    return planes;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} plane`;
+  async findAllActive() {
+    const planes = await this.planeModel.find({'status': 1});
+    return planes;
   }
 
-  update(id: number, updatePlaneDto: UpdatePlaneDto) {
-    return `This action updates a #${id} plane`;
+  async findOne(id: string) {
+    return this.planeModel.findById(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} plane`;
+  async update(id: string, updatePlaneDto: UpdatePlaneDto) {
+    const plane = await this.findById(id);
+    Object.assign(plane, updatePlaneDto);
+    await plane.save();
+    return plane;
+  }
+
+  async remove(id: string) {
+    const plane = await this.findById(id);
+    plane.set('status', 0);
+    plane.set('deletedAt', new Date().toISOString());
+    const result = await plane.save();
+    return result;
+  }
+
+  private async findById(id: string, throwError: boolean = true) {
+    const result = await this.planeModel.findOne({'_id': id, 'status': 1});
+    if (!result && throwError) throw new NotFoundException(`Plane ${id} not found`)
+    return result;
   }
 }
