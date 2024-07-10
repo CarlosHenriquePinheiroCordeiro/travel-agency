@@ -1,17 +1,13 @@
 import { Prop, Schema, SchemaFactory, raw } from "@nestjs/mongoose";
-import { Timestamp } from "mongodb";
 import { HydratedDocument } from "mongoose";
 
 export type PlaneDocument = HydratedDocument<Plane>;
 
-@Schema({timestamps: true})
+@Schema({timestamps: true })
 export class Plane {
 
     @Prop()
     name: string;
-
-    @Prop()
-    active: number;
 
     @Prop(raw({
         first: {type: 'number'},
@@ -22,13 +18,15 @@ export class Plane {
     seats: Record<string, number>;
 
     @Prop({default: 1})
-    status: number;
+    active: number;
 
     @Prop()
     company: string;
 
     @Prop()
     deletedAt: string;
+
+
 }
 
 export const PlaneSchema = SchemaFactory.createForClass(Plane);
