@@ -3,6 +3,8 @@ import { PlaneModule } from './plane/plane.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AirportModule } from './airport/airport.module';
+import { FlightModule } from './flight/flight.module';
+import { FlightModule } from './flight/flight.module';
 
 @Module({
   imports: [
@@ -15,7 +17,8 @@ import { AirportModule } from './airport/airport.module';
       inject: [ConfigService]
     }),
     PlaneModule,
-    AirportModule
+    AirportModule,
+    FlightModule
   ],
   controllers: [],
   providers: [],

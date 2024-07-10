@@ -1,0 +1,4 @@
+-CÁLCULO DAS PASSAGENS DE AVIÃO/BUSÃO (TUDO ESTÁ DENTRO DO ATRIBUTO prices DENTRO DE Plane)
+    -TIPO DA CLASSE:
+        -DISTÂNCIA EM KILÔMETROS (https://www.distance.to/Fernando-de-Noronha,Pernambuco,BRA/Danmark, https://docs.distance.to/api/requests)
+        -QUANTIDADE DE TICKETS COMPRADOS PARA TAL CLASSE, JUNTO DA QUANTIDADE DE MESES QUE A VIAGEM ESTÁ PRÓXIMA
