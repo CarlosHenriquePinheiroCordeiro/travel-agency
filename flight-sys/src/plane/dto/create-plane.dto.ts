@@ -1,15 +1,16 @@
 import { IsNotEmpty, IsString, IsUppercase, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
-import { PlaneSeatsDto } from "./plane-seats.dto";
+import { PlaneClassInfoDto } from "./plane-class-info.dto";
 
 export class CreatePlaneDto {
     @IsString()
     @IsNotEmpty()
     name: string;
 
+    @IsNotEmpty()
     @ValidateNested()
-    @Type(() => PlaneSeatsDto)
-    seats: PlaneSeatsDto;
+    @Type(() => PlaneClassInfoDto)
+    seats: PlaneClassInfoDto;
 
     @IsString()
     @IsNotEmpty()

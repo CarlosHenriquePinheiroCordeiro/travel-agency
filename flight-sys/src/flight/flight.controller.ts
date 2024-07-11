@@ -2,33 +2,23 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { FlightService } from './flight.service';
 import { CreateFlightDto } from './dto/create-flight.dto';
 import { UpdateFlightDto } from './dto/update-flight.dto';
+import { DefaultController } from 'src/default.controller';
 
 @Controller('flight')
-export class FlightController {
-  constructor(private readonly flightService: FlightService) {}
+export class FlightController extends DefaultController {
+  constructor(private readonly flightService: FlightService) {
+    super(flightService);
+  }
 
   @Post()
   create(@Body() createFlightDto: CreateFlightDto) {
     return this.flightService.create(createFlightDto);
   }
 
-  @Get()
-  findAll() {
-    return this.flightService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.flightService.findOne(+id);
-  }
-
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFlightDto: UpdateFlightDto) {
-    return this.flightService.update(+id, updateFlightDto);
+    return this.flightService.update(id, updateFlightDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.flightService.remove(+id);
-  }
+
 }

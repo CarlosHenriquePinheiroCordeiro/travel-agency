@@ -1,10 +1,12 @@
 import { Prop, Schema, SchemaFactory, raw } from "@nestjs/mongoose";
-import { HydratedDocument } from "mongoose";
+import { HydratedDocument, SchemaTypeOptions, SchemaTypes } from "mongoose";
+import { ActiveSchema } from "src/schemas/active.schema";
+import { getOptionsSchema } from "src/schemas/default.schema";
 
 export type PlaneDocument = HydratedDocument<Plane>;
 
-@Schema({timestamps: true })
-export class Plane {
+@Schema(getOptionsSchema())
+export class Plane extends ActiveSchema {
 
     @Prop()
     name: string;
@@ -17,14 +19,14 @@ export class Plane {
     }))
     seats: Record<string, number>;
 
-    @Prop({default: 1})
-    active: number;
+    @Prop(raw({
+        distance: {type: 'object'},
+        service: {type: 'object'}
+    }))
+    prices: Record<string, number>;
 
     @Prop()
     company: string;
-
-    @Prop()
-    deletedAt: string;
 
 
 }

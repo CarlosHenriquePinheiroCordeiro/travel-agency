@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, Min } from "class-validator";
 
-export class PlaneSeatsDto {
+export class PlaneClassInfoDto {
     @IsNotEmpty()
     @IsNumber()
     @Min(0)
