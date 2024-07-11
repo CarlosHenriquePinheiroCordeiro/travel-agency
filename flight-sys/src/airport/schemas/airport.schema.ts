@@ -1,16 +1,15 @@
 import { Prop, Schema, SchemaFactory, raw } from "@nestjs/mongoose";
 import { HydratedDocument } from "mongoose";
+import { ActiveSchema } from "src/schemas/active.schema";
+import { getOptionsSchema } from "src/schemas/default.schema";
 
 export type AirportDocument = HydratedDocument<Airport>;
 
-@Schema({timestamps: true, safe: true })
-export class Airport {
+@Schema(getOptionsSchema())
+export class Airport extends ActiveSchema {
 
     @Prop()
     name: string;
-
-    @Prop({default: 1})
-    active: number;
 
     @Prop()
     international: boolean;
@@ -23,9 +22,6 @@ export class Airport {
 
     @Prop()
     country: string;
-
-    @Prop()
-    deletedAt: string;
     
 
 }

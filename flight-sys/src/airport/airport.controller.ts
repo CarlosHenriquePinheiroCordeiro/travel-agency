@@ -2,29 +2,17 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { AirportService } from './airport.service';
 import { CreateAirportDto } from './dto/create-airport.dto';
 import { UpdateAirportDto } from './dto/update-airport.dto';
+import { DefaultController } from 'src/default.controller';
 
 @Controller('airport')
-export class AirportController {
-  constructor(private readonly airportService: AirportService) {}
+export class AirportController extends DefaultController {
+  constructor(private readonly airportService: AirportService) {
+    super(airportService);
+  }
 
   @Post()
   create(@Body() createAirportDto: CreateAirportDto) {
-    return this.airportService.create(createAirportDto);
-  }
-
-  @Get()
-  findAllActive() {
-    return this.airportService.findAllActive();
-  }
-
-  @Get('all')
-  findAll() {
-    return this.airportService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.airportService.findOne(id);
+    return this.airportService.create(createAirportDto);  
   }
 
   @Patch(':id')
@@ -32,8 +20,5 @@ export class AirportController {
     return this.airportService.update(id, updateAirportDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.airportService.remove(id);
-  }
+
 }
