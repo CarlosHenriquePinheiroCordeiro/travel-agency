@@ -1,5 +1,12 @@
 import { IsNotEmpty, IsNumber, Min } from "class-validator";
 
+export enum PlaneClassEnum {
+    FIRST = 1,
+    BUSINESS = 2,
+    PREMIUM_ECONOMIC = 3,
+    ECONOMIC = 4
+}
+
 export class PlaneClassInfoDto {
     @IsNotEmpty()
     @IsNumber()

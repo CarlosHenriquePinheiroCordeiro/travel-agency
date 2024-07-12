@@ -4,11 +4,6 @@ import { DefaultService } from "./default.service";
 export abstract class DefaultController {
     constructor(private readonly service: DefaultService) {}
 
-    @Get()
-    findAllActive() {
-        return this.service.findAllActive();
-    }
-
     @Get('all')
     findAll() {
         return this.service.findAll();
