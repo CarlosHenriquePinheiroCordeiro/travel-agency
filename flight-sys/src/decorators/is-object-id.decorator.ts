@@ -12,7 +12,7 @@ export function IsObjectId() {
                     return isValidObjectId(value);
                 },
                 defaultMessage() {
-                    return `${propertyName} has a non valid value`;
+                    return `Property ${propertyName} has a non valid value`;
                 }
             },
         });

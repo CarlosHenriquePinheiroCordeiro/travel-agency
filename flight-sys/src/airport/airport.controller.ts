@@ -3,9 +3,10 @@ import { AirportService } from './airport.service';
 import { CreateAirportDto } from './dto/create-airport.dto';
 import { UpdateAirportDto } from './dto/update-airport.dto';
 import { DefaultController } from 'src/default.controller';
+import { ActiveController } from 'src/active.controller';
 
 @Controller('airport')
-export class AirportController extends DefaultController {
+export class AirportController extends ActiveController {
   constructor(private readonly airportService: AirportService) {
     super(airportService);
   }

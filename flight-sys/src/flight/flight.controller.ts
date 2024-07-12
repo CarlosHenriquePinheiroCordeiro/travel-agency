@@ -2,10 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { FlightService } from './flight.service';
 import { CreateFlightDto } from './dto/create-flight.dto';
 import { UpdateFlightDto } from './dto/update-flight.dto';
-import { DefaultController } from 'src/default.controller';
+import { ActiveController } from 'src/active.controller';
 
 @Controller('flight')
-export class FlightController extends DefaultController {
+export class FlightController extends ActiveController {
   constructor(private readonly flightService: FlightService) {
     super(flightService);
   }

@@ -12,7 +12,7 @@ export class TravelController extends DefaultController {
 
   @Get()
   findAllActive() {
-      return this.findAll();
+    return this.findAll();
   }
 
   @Post()

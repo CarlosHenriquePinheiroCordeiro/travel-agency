@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory, raw } from "@nestjs/mongoose";
-import mongoose, { HydratedDocument, SchemaTypeOptions, SchemaTypes } from "mongoose";
+import mongoose, { HydratedDocument, SchemaTypeOptions, SchemaTypes, mongo } from "mongoose";
 import { ActiveSchema } from "src/schemas/active.schema";
 
 export type FlightDocument = HydratedDocument<Flight>;
@@ -30,10 +30,10 @@ export class Flight extends ActiveSchema {
     }))
     prices: Record<string, number>;
 
-    @Prop()
+    @Prop({ type: mongoose.Schema.Types.Date })
     takeoff: string;
 
-    @Prop()
+    @Prop({ type: mongoose.Schema.Types.Date })
     landing: string;
 
     @Prop()
