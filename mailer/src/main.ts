@@ -1,8 +1,24 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { ListenerModule } from './listener/listener.module';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    ListenerModule,
+    {
+      transport: Transport.RMQ,
+      options: {
+        urls: [process.env.SERVICE_URL],
+        queue: process.env.QUEUE_NAME,
+        queueOptions: {
+          durable: true,
+        },
+      },
+    },
+  );
+  await app.listen();
 }
 bootstrap();

@@ -10,10 +10,12 @@ import { TicketModule } from './ticket/ticket.module';
 @Module({
   imports: [
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule.forRoot({
+        envFilePath: '.env',
+        isGlobal: true
+      })],
       useFactory: async (configService: ConfigService) => ({
-        //uri: configService.get<string>('MONGODB_URI')
-        uri: 'mongodb+srv://adm:adm@travelagencyapi.emffmx1.mongodb.net/?retryWrites=true&w=majority&appName=TravelAgencyApi'
+        uri: configService.get<string>('MONGOURI')
       }),
       inject: [ConfigService]
     }),
