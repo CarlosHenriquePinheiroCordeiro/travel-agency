@@ -4,7 +4,6 @@ import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
 import { DefaultController } from 'src/default.controller';
 import { MailService } from 'src/mail/mail.service';
-import { MailDto } from 'src/mail/dto/mail.dto';
 
 @Controller('ticket')
 export class TicketController extends DefaultController {

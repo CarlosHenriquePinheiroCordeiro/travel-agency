@@ -11,11 +11,11 @@ export class MailDto {
 
     @IsString()
     @IsNotEmpty()
-    recipientEmail: string;
+    email: string;
 
     @IsString()
     @IsNotEmpty()
-    recipientPass: string
+    subject: string;
 
     @IsString()
     @IsNotEmpty()

@@ -2,19 +2,25 @@ import { Module } from '@nestjs/common';
 import { MailService } from './mail.service';
 import { MailController } from './mail.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    ClientsModule.register([
+    ClientsModule.registerAsync([
       {
         name: 'MAIL_SERVICE',
-        transport: Transport.RMQ,
-        options: {
-          urls: ['amqp://localhost:5680'],
-          queue: 'mail-queue'
-        }
-      }
+        imports: [ConfigModule],
+        useFactory: async (configService: ConfigService) => ({
+          transport: Transport.RMQ,
+          options: {
+            urls: [configService.get<string>('AMQP_URL')],
+            queue: configService.get<string>('MAIL_QUEUE'),
+          },
+        }),
+        inject: [ConfigService],
+      },
     ]),
+    ConfigModule,
   ],
   controllers: [MailController],
   providers: [MailService],
