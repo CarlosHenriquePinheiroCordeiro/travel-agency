@@ -23,6 +23,8 @@ const getConfigSendGmail = (mailData: MailDto) => {
 }
 
 export const sendGmail = (mailData: MailDto) => {
+    console.log('MANDANDO EMAIL');
+    console.log(mailData);
     newGmailTransport(mailData.senderEmail, mailData.senderPass).sendMail(getConfigSendGmail(mailData));
 }
 
