@@ -42,11 +42,11 @@ export class TripService extends ActiveService {
     }
   }
 
-  protected isValidInsert(insertData: any) {
+  protected async isValidInsert(insertData: any): Promise<boolean> {
     return this.isTripDatesValid(insertData.departal, insertData.arrival);
   }
 
-  protected isValidUpdate(updateData: any) {
+  protected async isValidUpdate(updateData: any): Promise<boolean> {
     return this.isTripDatesValid(updateData.departal, updateData.arrival);
   }
 

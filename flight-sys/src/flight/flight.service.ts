@@ -8,51 +8,51 @@ import { CreateFlightDto } from './dto/create-flight.dto';
 import { Travel } from 'src/travel/schemas/travel.schema';
 import { UpdateFlightDto } from './dto/update-flight.dto';
 import { ActiveService } from 'src/active.service';
+import { TravelService } from 'src/travel/travel.service';
+import { PlaneService } from 'src/plane/plane.service';
+import { AirportService } from 'src/airport/airport.service';
 
 @Injectable()
 export class FlightService extends ActiveService {
 
   constructor(
     @InjectModel(Flight.name) private flightModel: Model<Flight>,
-    @InjectModel(Plane.name) private planeModel: Model<Plane>,
-    @InjectModel(Airport.name) private airportModel: Model<Airport>,
-    @InjectModel(Travel.name) private travelModel: Model<Travel>,
+    private readonly planeService: PlaneService,
+    private readonly airportService: AirportService,
+    private readonly travelService: TravelService
   ) {
     super(flightModel);
   }
 
   async create(createDto) {
     const flightData: CreateFlightDto = {...createDto}
-    this.isValidInsert(flightData);
-    this.isEntitiesExists(flightData);
+    await this.isValidInsert(flightData);
+    await this.isEntitiesExists(flightData);
     const newModel = new this.flightModel(flightData);
     const result = await newModel.save();
     return result;
   }
 
   async isEntitiesExists(flightData: CreateFlightDto | UpdateFlightDto) {
-    /**
-     * @todo improve this
-     */
     if (flightData.travelId) {
-      await this.travelModel.findById(flightData.travelId);
+      await this.travelService.findById(flightData.travelId);
     }
     if (flightData.planeId) {
-      await this.planeModel.findById(flightData.planeId);
+      await this.planeService.findById(flightData.planeId);
     }
     if (flightData.airpTakeoffId) {
-      await this.airportModel.findById(flightData.airpTakeoffId);
+      await this.airportService.findById(flightData.airpTakeoffId);
     }
     if (flightData.airpLandingId) {
-      await this.airportModel.findById(flightData.airpLandingId);
+      await this.airportService.findById(flightData.airpLandingId);
     }
   }
 
-  protected isValidInsert(insertData: any) {
+  protected async isValidInsert(insertData: any): Promise<boolean> {
     return this.isFlightDatesValid(insertData.takeoff, insertData.landing);
   }
 
-  protected isValidUpdate(updateData: any) {
+  protected async isValidUpdate(updateData: any): Promise<boolean> {
     return this.isFlightDatesValid(updateData.takeoff, updateData.landing);
   }
 

@@ -5,8 +5,8 @@ import { sendGmail } from 'src/mail/smtp';
 @Injectable()
 export class EmitterService {
 
-    sendEmail(mailData: MailDto) {
-        sendGmail(mailData);
+    async sendEmail(mailData: MailDto) {
+        await sendGmail(mailData);
     }
 
 
