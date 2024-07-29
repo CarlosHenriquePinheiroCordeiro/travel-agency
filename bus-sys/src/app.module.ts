@@ -3,6 +3,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BusModule } from './bus/bus.module';
 import { StationModule } from './station/station.module';
+import { TripModule } from './trip/trip.module';
+import { TicketModule } from './ticket/ticket.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { StationModule } from './station/station.module';
     }),
     BusModule,
     StationModule,
+    TripModule,
+    TicketModule
   ],
   controllers: [],
   providers: [],

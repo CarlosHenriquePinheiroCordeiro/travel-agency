@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsUppercase, ValidateNested } from "class-validator";
+import { IsNotEmpty, IsString, IsUppercase } from "class-validator";
 
 export class CreateStationDto {
 

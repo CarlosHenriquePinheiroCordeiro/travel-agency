@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsDate, IsDateString, IsEnum, IsNotEmpty, IsUUID, ValidateNested } from "class-validator";
+import { IsDateString, IsEnum, IsNotEmpty, IsUUID, ValidateNested } from "class-validator";
 import { FlightPriceDto } from "./flight-price.dto";
 import { FlightType } from "../schemas/flight.schema";
 import { IsObjectId } from "src/decorators/is-object-id.decorator";
