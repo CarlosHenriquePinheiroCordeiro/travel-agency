@@ -22,9 +22,8 @@ const getConfigSendGmail = (mailData: MailDto) => {
     };
 }
 
-export const sendGmail = (mailData: MailDto) => {
-    console.log('MANDANDO EMAIL');
-    console.log(mailData);
-    newGmailTransport(mailData.senderEmail, mailData.senderPass).sendMail(getConfigSendGmail(mailData));
+export const sendGmail = async (mailData: MailDto) => {
+    const transport = newGmailTransport(mailData.senderEmail, mailData.senderPass);
+    await transport.sendMail(getConfigSendGmail(mailData));
 }
 

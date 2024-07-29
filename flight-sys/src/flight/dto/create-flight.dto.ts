@@ -11,12 +11,15 @@ export class CreateFlightDto {
     travelId: string;
 
     @IsNotEmpty()
+    @IsObjectId()
     planeId: string;
 
     @IsNotEmpty()
+    @IsObjectId()
     airpTakeoffId: string;
 
     @IsNotEmpty()
+    @IsObjectId()
     airpLandingId: string;
 
     @IsNotEmpty()

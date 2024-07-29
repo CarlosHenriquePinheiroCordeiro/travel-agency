@@ -4,7 +4,7 @@ export abstract class DefaultService {
   constructor(protected model) {}
 
   async create(createDto) {
-    this.isValidInsert(createDto);
+    await this.isValidInsert(createDto);
     const newModel = new this.model(createDto);
     const result = await newModel.save();
     return result;
@@ -20,7 +20,7 @@ export abstract class DefaultService {
   }
   
   async update(id: string, updateDto) {
-    this.isValidUpdate(updateDto);
+    await this.isValidUpdate(updateDto);
     const data = await this.findById(id);
     Object.assign(data, updateDto);
     await data.save();
@@ -48,11 +48,11 @@ export abstract class DefaultService {
     return {'_id': id};
   }
 
-  protected isValidInsert(insertData): boolean {
+  protected async isValidInsert(insertData): Promise<boolean> {
     return true;
   }
   
-  protected isValidUpdate(updateData): boolean {
+  protected async isValidUpdate(updateData): Promise<boolean> {
     return true;
   }
 

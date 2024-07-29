@@ -6,6 +6,9 @@ import { Flight, FlightSchema } from './schemas/flight.schema';
 import { Plane, PlaneSchema } from 'src/plane/schemas/plane.schema';
 import { Airport, AirportSchema } from 'src/airport/schemas/airport.schema';
 import { Travel, TravelSchema } from 'src/travel/schemas/travel.schema';
+import { TravelService } from 'src/travel/travel.service';
+import { AirportService } from 'src/airport/airport.service';
+import { PlaneService } from 'src/plane/plane.service';
 
 @Module({
   imports: [MongooseModule.forFeature([
@@ -15,6 +18,7 @@ import { Travel, TravelSchema } from 'src/travel/schemas/travel.schema';
     { name: Travel.name, schema: TravelSchema},
   ])],
   controllers: [FlightController],
-  providers: [FlightService],
+  providers: [FlightService, TravelService, AirportService, PlaneService],
+  exports: [TravelService, AirportService, PlaneService]
 })
 export class FlightModule {}

@@ -4,7 +4,7 @@ export abstract class DefaultService {
   constructor(protected model) {}
 
   async create(createDto) {
-    this.isValidInsert(createDto);
+    await this.isValidInsert(createDto);
     const newModel = new this.model(createDto);
     const result = await newModel.save();
     return result;
@@ -38,7 +38,7 @@ export abstract class DefaultService {
     data.set('deletedAt', new Date().toISOString());
   }
   
-  protected async findById(id: string, throwError: boolean = true) {
+  async findById(id: string, throwError: boolean = true) {
     const result = await this.model.findOne(this.getPropertiesFindById(id));
     if (!result && throwError) throw new NotFoundException(`Object with ${id} not found`)
     return result;
@@ -48,11 +48,11 @@ export abstract class DefaultService {
     return {'_id': id};
   }
 
-  protected isValidInsert(insertData): boolean {
+  protected async isValidInsert(insertData): Promise<boolean> {
     return true;
   }
   
-  protected isValidUpdate(updateData): boolean {
+  protected async isValidUpdate(updateData): Promise<boolean> {
     return true;
   }
 

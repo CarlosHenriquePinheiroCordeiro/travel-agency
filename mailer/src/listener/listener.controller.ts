@@ -10,8 +10,8 @@ export class ListenerController {
   ) {}
 
   @EventPattern('send-email')
-  listenEmailMsg(@Payload() mailData: MailDto) {
-    return this.emitterService.sendEmail(mailData);
+  async listenEmailMsg(@Payload() mailData: MailDto) {
+    return await this.emitterService.sendEmail(mailData);
   }
 
 
