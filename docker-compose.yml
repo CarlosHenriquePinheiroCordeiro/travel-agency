@@ -11,6 +11,53 @@ services:
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
         - rabbitmq_go_net
+    
+  flight-sys:
+    build:
+      context: ./flight-sys
+      dockerfile: Dockerfile
+      args:
+        - APP_PORT=${APP_FLIGHT_PORT}
+    container_name: flight-sys
+    ports:
+      - "${APP_FLIGHT_PORT}:${APP_FLIGHT_PORT}"
+    volumes:
+      - ./flight-sys:/usr/src/app
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+    command: ["npm", "run", "start:dev"]
+
+  bus-sys:
+    build:
+      context: ./bus-sys
+      dockerfile: Dockerfile
+      args:
+        - APP_PORT=${APP_BUS_PORT}
+    container_name: bus-sys
+    ports:
+      - "${APP_BUS_PORT}:${APP_BUS_PORT}"
+    volumes:
+      - ./bus-sys:/usr/src/app
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+    command: ["npm", "run", "start:dev"]
+
+  mailer:
+    build:
+      context: ./mailer
+      dockerfile: Dockerfile
+    container_name: mailer
+    volumes:
+      - ./mailer:/usr/src/app
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+    command: ["npm", "run", "start:dev"]
 
 networks:
   rabbitmq_go_net:

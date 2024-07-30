@@ -11,7 +11,7 @@ async function bootstrap() {
     {
       transport: Transport.RMQ,
       options: {
-        urls: [process.env.SERVICE_URL],
+        urls: [process.env.AMQP_URL],
         queue: process.env.QUEUE_NAME,
         queueOptions: {
           durable: true,
