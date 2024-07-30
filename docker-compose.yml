@@ -6,11 +6,14 @@ services:
     ports:
         - 5680:5672
         - 15680:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
     volumes:
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
-        - rabbitmq_go_net
+        - rabbit_net
     
   flight-sys:
     build:
@@ -28,6 +31,8 @@ services:
     depends_on:
       - rabbitmq
     command: ["npm", "run", "start:dev"]
+    networks:
+        - rabbit_net
 
   bus-sys:
     build:
@@ -45,6 +50,8 @@ services:
     depends_on:
       - rabbitmq
     command: ["npm", "run", "start:dev"]
+    networks:
+        - rabbit_net
 
   mailer:
     build:
@@ -58,7 +65,9 @@ services:
     depends_on:
       - rabbitmq
     command: ["npm", "run", "start:dev"]
+    networks:
+        - rabbit_net
 
 networks:
-  rabbitmq_go_net:
+  rabbit_net:
     driver: bridge
