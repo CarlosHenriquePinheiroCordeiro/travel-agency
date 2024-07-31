@@ -6,12 +6,68 @@ services:
     ports:
         - 5680:5672
         - 15680:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
     volumes:
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
-        - rabbitmq_go_net
+        - rabbit_net
+    
+  flight-sys:
+    build:
+      context: ./flight-sys
+      dockerfile: Dockerfile
+      args:
+        - APP_PORT=${APP_FLIGHT_PORT}
+    container_name: flight-sys
+    ports:
+      - "${APP_FLIGHT_PORT}:${APP_FLIGHT_PORT}"
+    volumes:
+      - ./flight-sys:/usr/src/app
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+    command: ["npm", "run", "start:dev"]
+    networks:
+        - rabbit_net
+
+  bus-sys:
+    build:
+      context: ./bus-sys
+      dockerfile: Dockerfile
+      args:
+        - APP_PORT=${APP_BUS_PORT}
+    container_name: bus-sys
+    ports:
+      - "${APP_BUS_PORT}:${APP_BUS_PORT}"
+    volumes:
+      - ./bus-sys:/usr/src/app
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+    command: ["npm", "run", "start:dev"]
+    networks:
+        - rabbit_net
+
+  mailer:
+    build:
+      context: ./mailer
+      dockerfile: Dockerfile
+    container_name: mailer
+    volumes:
+      - ./mailer:/usr/src/app
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+    command: ["npm", "run", "start:dev"]
+    networks:
+        - rabbit_net
 
 networks:
-  rabbitmq_go_net:
+  rabbit_net:
     driver: bridge
