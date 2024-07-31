@@ -1,11 +1,10 @@
 import { createTransport } from "nodemailer";
 import { MailDto } from "src/listener/dto/mail.dto";
 
-const newGmailTransport = (user: string, pass: string) => {
+const newEmailTransport = (user: string, pass: string) => {
     return createTransport({
-        host: "smtp.gmail.com",
+        host: "smtp.ethereal.email",
         port: 587,
-        secure: false,
         auth: {
             user,
             pass
@@ -13,7 +12,7 @@ const newGmailTransport = (user: string, pass: string) => {
     });
 }
 
-const getConfigSendGmail = (mailData: MailDto) => {
+const getConfigSendEmail = (mailData: MailDto) => {
     return {
         from: mailData.senderEmail,
         to: mailData.email,
@@ -22,8 +21,8 @@ const getConfigSendGmail = (mailData: MailDto) => {
     };
 }
 
-export const sendGmail = async (mailData: MailDto) => {
-    const transport = newGmailTransport(mailData.senderEmail, mailData.senderPass);
-    await transport.sendMail(getConfigSendGmail(mailData));
+export const sendEmail = async (mailData: MailDto) => {
+    const transport = newEmailTransport(mailData.senderEmail, mailData.senderPass);
+    await transport.sendMail(getConfigSendEmail(mailData));
 }
 

@@ -11,8 +11,6 @@ export class ListenerController {
 
   @EventPattern('send-email')
   async listenEmailMsg(@Payload() mailData: MailDto) {
-    console.log('RECEBI');
-    console.log(mailData);
     return await this.emitterService.sendEmail(mailData);
   }
 
