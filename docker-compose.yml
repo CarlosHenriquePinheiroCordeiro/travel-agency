@@ -53,6 +53,25 @@ services:
     networks:
         - rabbit_net
 
+  travel-agency:
+    build:
+      context: ./travel-agency
+      dockerfile: Dockerfile
+      args:
+        - APP_PORT=${APP_TA_PORT}
+    container_name: travel-agency
+    ports:
+      - "${APP_TA_PORT}:${APP_TA_PORT}"
+    volumes:
+      - ./travel-agency:/usr/src/app
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+    command: ["npm", "run", "start:dev"]
+    networks:
+        - rabbit_net
+
   mailer:
     build:
       context: ./mailer
