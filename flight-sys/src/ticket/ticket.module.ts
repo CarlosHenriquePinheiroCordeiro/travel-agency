@@ -14,7 +14,9 @@ import { FlightService } from 'src/flight/flight.service';
       { name: Ticket.name, schema: TicketSchema },
       { name: Flight.name, schema: FlightSchema },
     ]),
-    MailModule, FlightModule],
+    MailModule,
+    FlightModule,
+  ],
   controllers: [TicketController],
   providers: [TicketService, FlightService],
 })

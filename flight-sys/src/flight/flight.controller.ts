@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Patch, Param } from '@nestjs/common';
 import { FlightService } from './flight.service';
 import { CreateFlightDto } from './dto/create-flight.dto';
 import { UpdateFlightDto } from './dto/update-flight.dto';
@@ -19,6 +19,4 @@ export class FlightController extends ActiveController {
   update(@Param('id') id: string, @Body() updateFlightDto: UpdateFlightDto) {
     return this.flightService.update(id, updateFlightDto);
   }
-
-
 }

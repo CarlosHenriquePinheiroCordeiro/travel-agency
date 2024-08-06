@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory, raw } from "@nestjs/mongoose";
 import { HydratedDocument } from "mongoose";
-import { ActiveSchema } from "src/schemas/active.schema";
-import { getOptionsSchema } from "src/schemas/default.schema";
+import { ActiveSchema } from "../../schemas/active.schema";
+import { getOptionsSchema } from "../../schemas/default.schema";
 
 export type AirportDocument = HydratedDocument<Airport>;
 

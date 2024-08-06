@@ -11,14 +11,16 @@ import { AirportService } from 'src/airport/airport.service';
 import { PlaneService } from 'src/plane/plane.service';
 
 @Module({
-  imports: [MongooseModule.forFeature([
-    { name: Flight.name, schema: FlightSchema},
-    { name: Plane.name, schema: PlaneSchema},
-    { name: Airport.name, schema: AirportSchema},
-    { name: Travel.name, schema: TravelSchema},
-  ])],
+  imports: [
+    MongooseModule.forFeature([
+      { name: Flight.name, schema: FlightSchema },
+      { name: Plane.name, schema: PlaneSchema },
+      { name: Airport.name, schema: AirportSchema },
+      { name: Travel.name, schema: TravelSchema },
+    ]),
+  ],
   controllers: [FlightController],
   providers: [FlightService, TravelService, AirportService, PlaneService],
-  exports: [TravelService, AirportService, PlaneService]
+  exports: [TravelService, AirportService, PlaneService],
 })
 export class FlightModule {}

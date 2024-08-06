@@ -6,10 +6,7 @@ import { ActiveService } from 'src/active.service';
 
 @Injectable()
 export class PlaneService extends ActiveService {
-
   constructor(@InjectModel(Plane.name) private planeModel: Model<Plane>) {
     super(planeModel);
   }
-
-
 }

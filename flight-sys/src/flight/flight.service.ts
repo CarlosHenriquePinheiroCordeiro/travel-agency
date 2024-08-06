@@ -2,10 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Flight } from './schemas/flight.schema';
 import { Model } from 'mongoose';
-import { Plane } from 'src/plane/schemas/plane.schema';
-import { Airport } from 'src/airport/schemas/airport.schema';
 import { CreateFlightDto } from './dto/create-flight.dto';
-import { Travel } from 'src/travel/schemas/travel.schema';
 import { UpdateFlightDto } from './dto/update-flight.dto';
 import { ActiveService } from 'src/active.service';
 import { TravelService } from 'src/travel/travel.service';
@@ -14,18 +11,17 @@ import { AirportService } from 'src/airport/airport.service';
 
 @Injectable()
 export class FlightService extends ActiveService {
-
   constructor(
     @InjectModel(Flight.name) private flightModel: Model<Flight>,
     private readonly planeService: PlaneService,
     private readonly airportService: AirportService,
-    private readonly travelService: TravelService
+    private readonly travelService: TravelService,
   ) {
     super(flightModel);
   }
 
   async create(createDto) {
-    const flightData: CreateFlightDto = {...createDto}
+    const flightData: CreateFlightDto = { ...createDto };
     await this.isValidInsert(flightData);
     await this.isEntitiesExists(flightData);
     const newModel = new this.flightModel(flightData);
@@ -57,11 +53,15 @@ export class FlightService extends ActiveService {
   }
 
   protected isFlightDatesValid(takeoffDate, landingDate) {
-    if (!!takeoffDate && !!landingDate && new Date(takeoffDate) > new Date(landingDate)) {
-      throw new BadRequestException(`Takeoff date (${takeoffDate}) cannot be greater than landing date (${landingDate})`);
+    if (
+      !!takeoffDate &&
+      !!landingDate &&
+      new Date(takeoffDate) > new Date(landingDate)
+    ) {
+      throw new BadRequestException(
+        `Takeoff date (${takeoffDate}) cannot be greater than landing date (${landingDate})`,
+      );
     }
     return true;
   }
-
-
 }

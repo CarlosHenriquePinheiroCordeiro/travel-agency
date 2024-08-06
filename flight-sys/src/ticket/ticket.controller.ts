@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { TicketService } from './ticket.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
@@ -7,7 +7,6 @@ import { MailService } from 'src/mail/mail.service';
 
 @Controller('ticket')
 export class TicketController extends DefaultController {
-
   constructor(
     private readonly ticketService: TicketService,
     private readonly mailService: MailService,
@@ -31,5 +30,4 @@ export class TicketController extends DefaultController {
   update(@Param('id') id: string, @Body() updateTicketDto: UpdateTicketDto) {
     return this.ticketService.update(id, updateTicketDto);
   }
-
 }

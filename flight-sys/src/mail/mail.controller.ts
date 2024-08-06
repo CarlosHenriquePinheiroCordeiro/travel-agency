@@ -10,6 +10,4 @@ export class MailController {
   sendEmail(@Body() mailDto: MailDto) {
     this.mailService.sendEmail(mailDto);
   }
-
-
 }

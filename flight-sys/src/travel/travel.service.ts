@@ -6,10 +6,7 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class TravelService extends DefaultService {
-
   constructor(@InjectModel(Travel.name) private travelModel: Model<Travel>) {
     super(travelModel);
   }
-
-  
 }
