@@ -1,25 +1,24 @@
-import { IsBoolean, IsNotEmpty, IsString, IsUppercase, ValidateNested } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsString, IsUppercase } from 'class-validator';
 
 export class CreateAirportDto {
-    @IsString()
-    @IsNotEmpty()
-    name: string;
+  @IsString()
+  @IsNotEmpty()
+  name: string;
 
-    @IsBoolean()
-    @IsNotEmpty()
-    international: boolean;
+  @IsBoolean()
+  @IsNotEmpty()
+  international: boolean;
 
-    @IsString()
-    @IsNotEmpty()
-    city: string;
+  @IsString()
+  @IsNotEmpty()
+  city: string;
 
-    @IsString()
-    @IsNotEmpty()
-    state: string;
+  @IsString()
+  @IsNotEmpty()
+  state: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @IsUppercase()
-    country: string;
-
+  @IsString()
+  @IsNotEmpty()
+  @IsUppercase()
+  country: string;
 }

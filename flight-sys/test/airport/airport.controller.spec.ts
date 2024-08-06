@@ -1,67 +1,85 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { CreateAirportDto } from '../../src/airport/dto/create-airport.dto';
+import { UpdateAirportDto } from '../../src/airport/dto/update-airport.dto';
 import { AirportController } from '../../src/airport/airport.controller';
 import { AirportService } from '../../src/airport/airport.service';
-import { getModelToken } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Airport } from '../../src/airport/schemas/airport.schema';
-import { newAirportMock } from './schemas/airport-mock';
+import { getAirportModuleTest } from './utils/get-airport-module-test';
+import { newCreateAirportMock, newUpdateAirportMock } from './utils/mocks';
 
 describe('AirportController', () => {
   let controller: AirportController;
   let service: AirportService;
-  let model: Model<Airport>;
-
-  let mockAirport;
-  let airportArray;
-  let mockAirportModel;
 
   beforeEach(async () => {
-    mockAirport = newAirportMock();
-
-    airportArray = [
-      mockAirport,
-      newAirportMock('AirportTest2'),
-    ];
-  
-    mockAirportModel = {
-      find: jest.fn().mockResolvedValue(airportArray),
-    };
-
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [AirportController],
-      providers: [
-        AirportService,
-        {
-          provide: getModelToken(Airport.name),
-          useValue: mockAirportModel,
-        },
-      ],
-    }).compile();
+    const module = await getAirportModuleTest();
 
     controller = module.get<AirportController>(AirportController);
     service = module.get<AirportService>(AirportService);
-    model = module.get<Model<Airport>>(getModelToken(Airport.name));
   });
 
-  it('Should be defined', () => {
+  it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
-  it('Should return an Airport model', async () => {
-    mockAirportModel.findById = jest.fn().mockResolvedValue(mockAirport)
+  describe('create', () => {
+    it('should create an airport', async () => {
+      const createAirportDto: CreateAirportDto = newCreateAirportMock();
+      const result = { ...createAirportDto, _id: '1' };
+      jest.spyOn(service, 'create').mockResolvedValue(result);
 
-    mockAirport._id = '123';
-
-    const result = await controller.findOne('123');
-    expect(result._id).toEqual(mockAirport._id);
-    expect(model.findById).toHaveBeenCalled();
+      expect(await controller.create(createAirportDto)).toEqual(result);
+    });
   });
 
-  it('Should return an array of Airports', async () => {
-    mockAirportModel.find = jest.fn().mockResolvedValue(airportArray);
-    
-    const result = await controller.findAll();
-    expect(result).toEqual(airportArray);
-    expect(model.find).toHaveBeenCalled();
+  describe('findAll', () => {
+    it('should return an array of airports', async () => {
+      const result = [
+        {
+          name: 'Test Airport',
+          international: true,
+          city: 'Test City',
+          state: 'Test State',
+          country: 'Test Country',
+          _id: '1',
+        },
+      ];
+      jest.spyOn(service, 'findAll').mockResolvedValue(result);
+
+      expect(await controller.findAll()).toEqual(result);
+    });
+  });
+
+  describe('findOne', () => {
+    it('should return a single airport', async () => {
+      const result = {
+        name: 'Test Airport',
+        international: true,
+        city: 'Test City',
+        state: 'Test State',
+        country: 'Test Country',
+        _id: '1',
+      };
+      jest.spyOn(service, 'findOne').mockResolvedValue(result);
+
+      expect(await controller.findOne('1')).toEqual(result);
+    });
+  });
+
+  describe('update', () => {
+    it('should update an airport', async () => {
+      const updateAirportDto: UpdateAirportDto = newUpdateAirportMock();
+      const result = { ...updateAirportDto, _id: '1' };
+      jest.spyOn(service, 'update').mockResolvedValue(result);
+
+      expect(await controller.update('1', updateAirportDto)).toEqual(result);
+    });
+  });
+
+  describe('remove', () => {
+    it('should remove an airport', async () => {
+      const result = { _id: '1', name: 'Test Airport' };
+      jest.spyOn(service, 'remove').mockResolvedValue(result);
+
+      expect(await controller.remove('1')).toEqual(result);
+    });
   });
 });

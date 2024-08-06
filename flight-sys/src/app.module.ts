@@ -10,20 +10,22 @@ import { TicketModule } from './ticket/ticket.module';
 @Module({
   imports: [
     MongooseModule.forRootAsync({
-      imports: [ConfigModule.forRoot({
-        envFilePath: '.env',
-        isGlobal: true
-      })],
+      imports: [
+        ConfigModule.forRoot({
+          envFilePath: '.env',
+          isGlobal: true,
+        }),
+      ],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGOURI')
+        uri: configService.get<string>('MONGOURI'),
       }),
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
     PlaneModule,
     AirportModule,
     FlightModule,
     TravelModule,
-    TicketModule
+    TicketModule,
   ],
   controllers: [],
   providers: [],
