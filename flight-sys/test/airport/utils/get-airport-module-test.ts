@@ -12,9 +12,9 @@ export const getAirportModuleTest = async (): Promise<TestingModule> => {
       {
         provide: getModelToken(Airport.name),
         useValue: {
-          create: jest.fn(),
-          findAll: jest.fn(),
-          findOne: jest.fn(),
+          save: jest.fn(),
+          find: jest.fn(),
+          findById: jest.fn(),
           update: jest.fn(),
           remove: jest.fn(),
         },

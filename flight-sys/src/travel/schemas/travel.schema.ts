@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { DefaultSchema, getOptionsSchema } from 'src/schemas/default.schema';
+import { DefaultSchema, getOptionsSchema } from '../../schemas/default.schema';
 
 export type TravelDocument = HydratedDocument<Travel>;
 

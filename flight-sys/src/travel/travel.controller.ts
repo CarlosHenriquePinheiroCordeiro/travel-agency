@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { TravelService } from './travel.service';
 import { CreateTravelDto } from './dto/create-travel.dto';
 import { UpdateTravelDto } from './dto/update-travel.dto';
-import { DefaultController } from 'src/default.controller';
+import { DefaultController } from '../default.controller';
 
 @Controller('travel')
 export class TravelController extends DefaultController {

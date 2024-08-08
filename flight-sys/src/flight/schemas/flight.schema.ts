@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { ActiveSchema } from 'src/schemas/active.schema';
+import { ActiveSchema } from '../../schemas/active.schema';
 
 export type FlightDocument = HydratedDocument<Flight>;
 

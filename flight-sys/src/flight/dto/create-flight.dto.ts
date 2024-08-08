@@ -7,7 +7,7 @@ import {
 } from 'class-validator';
 import { FlightPriceDto } from './flight-price.dto';
 import { FlightType } from '../schemas/flight.schema';
-import { IsObjectId } from 'src/decorators/is-object-id.decorator';
+import { IsObjectId } from '../../decorators/is-object-id.decorator';
 
 export class CreateFlightDto {
   @IsNotEmpty()

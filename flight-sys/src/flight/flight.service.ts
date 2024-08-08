@@ -4,10 +4,10 @@ import { Flight } from './schemas/flight.schema';
 import { Model } from 'mongoose';
 import { CreateFlightDto } from './dto/create-flight.dto';
 import { UpdateFlightDto } from './dto/update-flight.dto';
-import { ActiveService } from 'src/active.service';
-import { TravelService } from 'src/travel/travel.service';
-import { PlaneService } from 'src/plane/plane.service';
-import { AirportService } from 'src/airport/airport.service';
+import { ActiveService } from '../../src/active.service';
+import { TravelService } from '../../src/travel/travel.service';
+import { PlaneService } from '../../src/plane/plane.service';
+import { AirportService } from '../../src/airport/airport.service';
 
 @Injectable()
 export class FlightService extends ActiveService {

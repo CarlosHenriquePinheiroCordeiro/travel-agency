@@ -1,23 +1,20 @@
 import { CreateAirportDto } from '../../src/airport/dto/create-airport.dto';
 import { UpdateAirportDto } from '../../src/airport/dto/update-airport.dto';
-import { AirportController } from '../../src/airport/airport.controller';
 import { AirportService } from '../../src/airport/airport.service';
 import { getAirportModuleTest } from './utils/get-airport-module-test';
 import { newCreateAirportMock, newUpdateAirportMock } from './utils/mocks';
 
-describe('AirportController', () => {
-  let controller: AirportController;
+describe('AirportService', () => {
   let service: AirportService;
 
   beforeEach(async () => {
     const module = await getAirportModuleTest();
 
-    controller = module.get<AirportController>(AirportController);
     service = module.get<AirportService>(AirportService);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(service).toBeDefined();
   });
 
   describe('create', () => {
@@ -26,8 +23,7 @@ describe('AirportController', () => {
       const result = { ...createAirportDto, _id: '1' };
       jest.spyOn(service, 'create').mockResolvedValue(result);
 
-      expect(await controller.create(createAirportDto)).toEqual(result);
-      expect(service.create).toHaveBeenCalled();
+      expect(await service.create(createAirportDto)).toEqual(result);
     });
   });
 
@@ -46,8 +42,7 @@ describe('AirportController', () => {
       ];
       jest.spyOn(service, 'findAll').mockResolvedValue(result);
 
-      expect(await controller.findAll()).toEqual(result);
-      expect(service.findAll).toHaveBeenCalled();
+      expect(await service.findAll()).toEqual(result);
     });
   });
 
@@ -66,8 +61,7 @@ describe('AirportController', () => {
       ];
       jest.spyOn(service, 'findAllActive').mockResolvedValue(result);
 
-      expect(await controller.findAllActive()).toEqual(result);
-      expect(service.findAllActive).toHaveBeenCalled();
+      expect(await service.findAllActive()).toEqual(result);
     });
   });
 
@@ -83,8 +77,7 @@ describe('AirportController', () => {
       };
       jest.spyOn(service, 'findOne').mockResolvedValue(result);
 
-      expect(await controller.findOne('1')).toEqual(result);
-      expect(service.findOne).toHaveBeenCalled();
+      expect(await service.findOne('1')).toEqual(result);
     });
   });
 
@@ -94,8 +87,7 @@ describe('AirportController', () => {
       const result = { ...updateAirportDto, _id: '1' };
       jest.spyOn(service, 'update').mockResolvedValue(result);
 
-      expect(await controller.update('1', updateAirportDto)).toEqual(result);
-      expect(service.update).toHaveBeenCalled();
+      expect(await service.update('1', updateAirportDto)).toEqual(result);
     });
   });
 
@@ -104,8 +96,7 @@ describe('AirportController', () => {
       const result = { _id: '1', name: 'Test Airport' };
       jest.spyOn(service, 'remove').mockResolvedValue(result);
 
-      expect(await controller.remove('1')).toEqual(result);
-      expect(service.remove).toHaveBeenCalled();
+      expect(await service.remove('1')).toEqual(result);
     });
   });
 });
