@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { CreateFlightDto } from '../../src/flight/dto/create-flight.dto';
 import { UpdateFlightDto } from '../../src/flight/dto/update-flight.dto';
 import { FlightController } from '../../src/flight/flight.controller';
@@ -23,14 +24,13 @@ describe('FlightController', () => {
   describe('create', () => {
     it('should create an flight', async () => {
       const createFlightDto: CreateFlightDto = await newCreateFlightMock({
-        travelId: '1',
-        airpLandingId: '1',
-        airpTakeoffId: '1',
-        planeId: '1',
+        travelId: new mongoose.Types.ObjectId(),
+        airpLandingId: new mongoose.Types.ObjectId(),
+        airpTakeoffId: new mongoose.Types.ObjectId(),
+        planeId: new mongoose.Types.ObjectId(),
       });
-      console.log(createFlightDto);
-      const result = { ...createFlightDto, _id: '1' };
-      jest.spyOn(service, 'create').mockResolvedValue(result);
+      const result = { ...createFlightDto };
+      jest.spyOn(service, 'create').mockResolvedValue(result as any);
 
       expect(await controller.create(createFlightDto)).toEqual(result);
     });

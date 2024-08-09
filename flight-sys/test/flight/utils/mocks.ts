@@ -4,14 +4,15 @@ import { UpdateFlightDto } from '../../../src/flight/dto/update-flight.dto';
 import { plainToInstance } from 'class-transformer';
 import { FlightPriceDto } from '../../../src/flight/dto/flight-price.dto';
 import { FlightType } from '../../../src/flight/schemas/flight.schema';
-import { PlaneClassInfoDto } from 'src/plane/dto/plane-class-info.dto';
-import { newPlaneClassInfoMock } from 'test/plane/utils/mocks';
+import { PlaneClassInfoDto } from '../../../src/plane/dto/plane-class-info.dto';
+import { newPlaneClassInfoMock } from '../../../test/plane/utils/mocks';
+import mongoose from 'mongoose';
 
 interface OptionsFlightMock {
-  travelId: string;
-  planeId: string;
-  airpTakeoffId: string;
-  airpLandingId: string;
+  travelId: { _id: mongoose.Types.ObjectId };
+  planeId: { _id: mongoose.Types.ObjectId };
+  airpTakeoffId: { _id: mongoose.Types.ObjectId };
+  airpLandingId: { _id: mongoose.Types.ObjectId };
   prices?: FlightPriceDto;
   takeoff?: string;
   landing?: string;

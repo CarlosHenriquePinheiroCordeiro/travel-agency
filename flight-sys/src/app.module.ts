@@ -18,6 +18,7 @@ import { TicketModule } from './ticket/ticket.module';
       ],
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get<string>('MONGOURI'),
+        dbName: configService.get<string>('DBNAME'),
       }),
       inject: [ConfigService],
     }),

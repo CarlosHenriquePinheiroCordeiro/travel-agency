@@ -3,15 +3,12 @@ import { FlightService } from './flight.service';
 import { FlightController } from './flight.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Flight, FlightSchema } from './schemas/flight.schema';
-import { Plane, PlaneSchema } from '../../src/plane/schemas/plane.schema';
-import {
-  Airport,
-  AirportSchema,
-} from '../../src/airport/schemas/airport.schema';
-import { Travel, TravelSchema } from '../../src/travel/schemas/travel.schema';
-import { TravelService } from '../../src/travel/travel.service';
-import { AirportService } from '../../src/airport/airport.service';
-import { PlaneService } from '../../src/plane/plane.service';
+import { Plane, PlaneSchema } from '../plane/schemas/plane.schema';
+import { Airport, AirportSchema } from '../airport/schemas/airport.schema';
+import { Travel, TravelSchema } from '../travel/schemas/travel.schema';
+import { TravelService } from '../travel/travel.service';
+import { AirportService } from '../airport/airport.service';
+import { PlaneService } from '../plane/plane.service';
 
 @Module({
   imports: [

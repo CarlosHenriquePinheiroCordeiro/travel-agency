@@ -28,9 +28,20 @@ services:
       - ./flight-sys:/usr/src/app
     env_file:
       - .env
-    depends_on:
-      - rabbitmq
     command: ["npm", "run", "start:dev"]
+    networks:
+        - rabbit_net
+
+  flight-test:
+    build:
+      context: ./flight-sys
+      dockerfile: Dockerfile.test
+    container_name: flight-test
+    volumes:
+      - ./flight-sys:/usr/src/app
+    env_file:
+      - .env
+    command: ["npm", "run", "test"]
     networks:
         - rabbit_net
 
@@ -47,8 +58,6 @@ services:
       - ./bus-sys:/usr/src/app
     env_file:
       - .env
-    depends_on:
-      - rabbitmq
     command: ["npm", "run", "start:dev"]
     networks:
         - rabbit_net
@@ -66,8 +75,6 @@ services:
       - ./travel-agency:/usr/src/app
     env_file:
       - .env
-    depends_on:
-      - rabbitmq
     command: ["npm", "run", "start:dev"]
     networks:
         - rabbit_net
@@ -81,8 +88,6 @@ services:
       - ./mailer:/usr/src/app
     env_file:
       - .env
-    depends_on:
-      - rabbitmq
     command: ["npm", "run", "start:dev"]
     networks:
         - rabbit_net

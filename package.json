@@ -1,0 +1,22 @@
+{
+  "name": "travel-agency",
+  "version": "1.0.0",
+  "description": "This project aims to make a simulation of a Travel Agency application, built on Ports and Adapters architecture using NestJs.",
+  "main": "index.js",
+  "scripts": {
+    "app": "docker compose up rabbitmq mailer flight-sys bus-sys travel-agency",
+    "flight": "docker compose up flight-sys",
+    "bus": "docker compose up bus-sys",
+    "rabbitmq": "docker compose up rabbitmq",
+    "mailer": "docker compose up mailer",
+    "test": "docker compose up flight-test",
+    "flight:test": "docker compose up flight-test",
+    "bus:test": "docker compose up bus-test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CarlosHenriquePinheiroCordeiro/travel-agency.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

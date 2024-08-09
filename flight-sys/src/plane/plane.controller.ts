@@ -2,7 +2,7 @@ import { Controller, Post, Body, Patch, Param } from '@nestjs/common';
 import { PlaneService } from './plane.service';
 import { CreatePlaneDto } from './dto/create-plane.dto';
 import { UpdatePlaneDto } from './dto/update-plane.dto';
-import { ActiveController } from '../../src/active.controller';
+import { ActiveController } from '../active.controller';
 
 @Controller('plane')
 export class PlaneController extends ActiveController {
